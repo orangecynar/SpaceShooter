@@ -1,23 +1,20 @@
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
-    public static GameController Instance { get; private set; }
-    public float GameSpeed { get; private set; }
     [SerializeField] float acceleration;
     [SerializeField] float maxGameSpeed;
+    static float gameSpeed;
+    public float GameSpeed => gameSpeed;
 
-    void Awake()
+    void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
+        gameSpeed = 0.0f;
     }
 
     void Update()
     {
-        if (GameSpeed <= maxGameSpeed)
-            GameSpeed += acceleration * Time.deltaTime;
+        if (gameSpeed <= maxGameSpeed)
+            gameSpeed += acceleration * Time.deltaTime;
     }
 }

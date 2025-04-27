@@ -6,20 +6,24 @@ public class Spawner : MonoBehaviour
     [SerializeField] float spawnCooldown;
     float lastSpawnTime;
     Camera mainCamera;
+    SpriteRenderer spriteRenderer;
 
     void Start()
     {
         mainCamera = Camera.main;
+        spriteRenderer = obstaclePrefab.GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
         if (Time.time > lastSpawnTime + spawnCooldown)
         {
-            Vector2 newPosition = transform.position;
-            newPosition.x = mainCamera.transform.position.x + mainCamera.aspect * Random.Range(-mainCamera.orthographicSize, mainCamera.orthographicSize);
-
-            Instantiate(obstaclePrefab, newPosition, Quaternion.identity);
+            Instantiate(
+                obstaclePrefab,
+                (Vector2)mainCamera.transform.position + new Vector2(
+                    mainCamera.aspect * Random.Range(-mainCamera.orthographicSize, mainCamera.orthographicSize),
+                    mainCamera.orthographicSize + spriteRenderer.bounds.extents.y),
+                Quaternion.identity);
             lastSpawnTime = Time.time;
         }
     }
