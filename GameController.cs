@@ -4,7 +4,7 @@ public class GameController : Singleton<GameController>
 {
     [SerializeField] float acceleration;
     [SerializeField] float maxGameSpeed;
-    static float gameSpeed;
+    float gameSpeed;
     public float GameSpeed => gameSpeed;
 
     void Start()

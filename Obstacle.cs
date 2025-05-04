@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] GameObject playerExplosionPrefab;
+    [SerializeField] GameObject explosionPrefab;
+    [SerializeField] GameObject itemPrefab;
+    [SerializeField] bool spawnsItems;
     
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collision.TryGetComponent<Player>(out var player))
+        if (collider.GetComponent<Projectile>())
         {
-            Instantiate(playerExplosionPrefab, transform.position, transform.rotation);
-            player.Defeat();
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
+
+            if (spawnsItems)
+                Instantiate(itemPrefab, transform.position, transform.rotation);
+
+            Destroy(collider.gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] float speed;
     Camera mainCamera;
@@ -14,8 +14,8 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.up * (speed * Time.deltaTime);
-        if (transform.position.y > mainCamera.orthographicSize + spriteRenderer.bounds.extents.y)
+        transform.position += Vector3.down * ((speed + GameController.Instance.GameSpeed) * Time.deltaTime);
+        if (transform.position.y < -mainCamera.orthographicSize - spriteRenderer.bounds.extents.y)
             Destroy(gameObject);
     }
 }
