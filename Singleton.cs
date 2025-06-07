@@ -3,10 +3,7 @@ using UnityEngine;
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     static T instance;
-    public static T Instance
-    {
-        get => instance ??= (FindObjectOfType<T>() ?? new GameObject() { name = typeof(T).Name }.AddComponent<T>());   
-    }
+    public static T Instance => instance ??= (FindObjectOfType<T>() ?? new GameObject() { name = typeof(T).Name }.AddComponent<T>());
 
     protected virtual void Awake()
     {
