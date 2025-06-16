@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || !(UNITY_ANDROID || UNITY_IOS)
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
 #else
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
